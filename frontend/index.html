@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoClean - Smart Garbage Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🌿 EcoClean</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="map.html">Map View</a>
+            <a href="login.html" class="btn btn-outline" id="nav-login">Login</a>
+            <a href="register.html" class="btn btn-primary" id="nav-register">Register</a>
+            <a href="#" class="btn btn-danger hidden" id="nav-logout" onclick="logout()">Logout</a>
+            <a href="user-dashboard.html" class="btn btn-primary hidden" id="nav-dashboard">Dashboard</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Keep Our City <span class="highlight">Clean</span> & <span class="highlight">Green</span></h1>
+            <p>Report garbage build-ups instantly. Give your community a cleaner future with real-time tracking and management.</p>
+            <a href="login.html" class="btn btn-large" id="hero-btn">Get Started Now</a>
+        </div>
+    </header>
+
+    <section class="features">
+        <a href="driver-checkin.html" style="text-decoration: none; color: inherit; display: block;">
+            <div class="feature-card">
+                <div class="icon">📍</div>
+                <h3>Location Based</h3>
+                <p>Automatically detect garbage locations & map driver fleets via GPS.</p>
+            </div>
+        </a>
+        <div class="feature-card">
+            <div class="icon">📸</div>
+            <h3>Image Upload</h3>
+            <p>Click and upload images for accurate verification and fast processing.</p>
+        </div>
+        <div class="feature-card">
+            <div class="icon">⚡</div>
+            <h3>Real-time Tracking</h3>
+            <p>Track the status of your reported garbage seamlessly from pending to completed.</p>
+        </div>
+    </section>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('token');
+            if(token) {
+                const role = localStorage.getItem('role');
+                const btn = document.getElementById('hero-btn');
+                btn.innerText = "Go to Dashboard";
+                btn.href = role === 'admin' ? 'admin-dashboard.html' : 'user-dashboard.html';
+            }
+        });
+    </script>
+</body>
+</html>

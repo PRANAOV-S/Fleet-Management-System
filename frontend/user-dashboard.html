@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - EcoClean</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🌿 EcoClean</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="map.html">Map View</a>
+            <a href="#" class="btn btn-danger" onclick="logout()">Logout</a>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <div>
+                <h2>My Garbage Reports</h2>
+                <p style="color: #cbd5e1; margin-top: 0.5rem;" id="user-greeting">Welcome back!</p>
+            </div>
+            <a href="report.html" class="btn btn-primary">+ Report Garbage</a>
+        </div>
+        
+        <div class="reports-grid" id="user-reports">
+            <!-- Rendered via JS -->
+            <p>Loading reports...</p>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+            if(localStorage.getItem('role') === 'admin') window.location.href = 'admin-dashboard.html';
+            document.getElementById('user-greeting').innerText = `Welcome back, ${localStorage.getItem('name')}!`;
+            loadUserReports();
+        });
+    </script>
+</body>
+</html>

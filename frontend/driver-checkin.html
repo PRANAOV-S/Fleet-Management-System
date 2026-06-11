@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Check-In - EcoClean</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .alarm-box {
+            display: none;
+            background-color: #ef4444;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            text-align: center;
+            animation: pulse-alarm 1.5s infinite;
+        }
+
+        .success-box {
+            display: none;
+            background-color: #10b981;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        @keyframes pulse-alarm {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🌿 EcoClean</div>
+        <div class="nav-links">
+            <a href="index.html" class="btn btn-outline">Back to Home</a>
+        </div>
+    </nav>
+
+    <div class="form-container" style="max-width: 600px;">
+        <h2>Driver Shift Check-In</h2>
+        <p style="text-align:center; color:#cbd5e1; margin-bottom:2rem;">Log your shift details and current mapping location for dispatch.</p>
+        
+        <form id="driver-form">
+            <div class="form-group">
+                <label>Driver Name</label>
+                <input type="text" id="driver_name" class="form-control" placeholder="e.g. John Smith" required>
+            </div>
+            
+            <div class="form-group" style="display: flex; gap: 1rem;">
+                <div style="flex: 1;">
+                    <label>Number of Shifts</label>
+                    <input type="number" id="shifts" class="form-control" min="1" value="1" required>
+                </div>
+                <div style="flex: 1;">
+                    <label>Lorry Number</label>
+                    <input type="text" id="lorry_number" class="form-control" placeholder="e.g. TN-00-XX-0000" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Expected Arrival Time</label>
+                <input type="time" id="expected_time" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>Location Coordinates</label>
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <input type="text" id="latitude" class="form-control" placeholder="Latitude" readonly required>
+                    <input type="text" id="longitude" class="form-control" placeholder="Longitude" readonly required>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" class="btn btn-outline" onclick="getLocation()" style="flex: 1;">📍 Detect GPS Location</button>
+                    <a id="gmaps-link" href="#" target="_blank" class="btn btn-primary" style="display:none; flex: 1;">🗺️ View on Google Maps</a>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Check-In Shift</button>
+        </form>
+
+        <div id="alarm-box" class="alarm-box">
+            <h3 style="margin-bottom: 0.5rem;">⚠️ LATE ARRIVAL ALARM ⚠️</h3>
+            <p id="alarm-message">You are checking in past your expected time!</p>
+            <audio id="alarm-audio" loop>
+                <source src="https://assets.mixkit.co/sfx/preview/mixkit-classic-alarm-995.mp3" type="audio/mpeg">
+            </audio>
+            <button class="btn btn-outline" style="margin-top:1rem; border-color:white; color:white;" onclick="stopAlarm()">Silence Alarm & Dashboard</button>
+        </div>
+
+        <div id="success-box" class="success-box">
+            <h3 style="margin-bottom: 0.5rem;">✅ PUNCTUAL CHECK-IN</h3>
+            <p>You have successfully logged in on time.</p>
+            <a href="index.html" class="btn btn-outline" style="margin-top:1rem; border-color:white; color:white;">Return Home</a>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

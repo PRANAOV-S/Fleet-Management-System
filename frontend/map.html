@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map View - EcoClean</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🌿 EcoClean</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="#" id="map-dashboard-link" class="btn btn-outline hidden">Dashboard</a>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <h2>Live Fleet & Report Map</h2>
+        <p style="margin-bottom: 1rem; color: #cbd5e1;">Monitor live lorry tracking and garbage hotspots in the city.</p>
+        
+        <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+            <!-- Map Container -->
+            <div style="flex: 3; min-width: 60%;">
+                <div id="map" style="height: 70vh; margin-bottom: 0;"></div>
+            </div>
+
+            <!-- Fleet Tracker Sidebar -->
+            <div style="flex: 1; min-width: 300px; background: var(--dark-card); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border); display: flex; flex-direction: column; max-height: 70vh;">
+                <h3 style="color: var(--secondary);">🚚 Fleet Tracker</h3>
+                <input type="text" id="lorry-search" class="form-control" placeholder="Search Lorry Number..." style="margin: 1rem 0;">
+                <div id="fleet-list" style="overflow-y: auto; flex: 1; padding-right: 5px;">
+                    <p style="color: #cbd5e1; font-size: 0.9rem;">Loading vehicles...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            updateNavState();
+            if (localStorage.getItem('token')) {
+                const link = document.getElementById('map-dashboard-link');
+                link.classList.remove('hidden');
+                link.href = localStorage.getItem('role') === 'admin' ? 'admin-dashboard.html' : 'user-dashboard.html';
+            }
+            loadMap();
+        });
+    </script>
+</body>
+</html>
